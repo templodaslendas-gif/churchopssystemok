@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand */
+    --brand: 220 90% 56%;
+    --brand-fg: 0 0% 100%;
+
+    /* Surface */
+    --background: 224 20% 7%;
+    --background-subtle: 224 18% 10%;
+    --foreground: 220 15% 95%;
+
+    --card: 224 18% 10%;
+    --card-hover: 224 16% 13%;
+    --card-foreground: 220 15% 95%;
+
+    --popover: 224 20% 11%;
+    --popover-foreground: 220 15% 95%;
+
+    /* Sidebar */
+    --sidebar: 224 25% 6%;
+    --sidebar-foreground: 220 12% 85%;
+    --sidebar-border: 224 20% 13%;
+    --sidebar-accent: 220 90% 56% / 0.12;
+    --sidebar-primary: 220 90% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+
+    /* Primary */
+    --primary: 220 90% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Muted */
+    --muted: 224 16% 15%;
+    --muted-foreground: 220 10% 55%;
+
+    /* Accent */
+    --accent: 224 16% 18%;
+    --accent-foreground: 220 15% 90%;
+
+    /* Semantic */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 0%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border & Input */
+    --border: 224 18% 16%;
+    --input: 224 18% 14%;
+    --ring: 220 90% 56%;
+
+    /* Radius */
+    --radius: 0.75rem;
+
+    /* Shadows */
+    --shadow-elegant: 0 4px 24px -4px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.2);
+    --shadow-glow: 0 0 40px -8px hsl(220 90% 56% / 0.3);
+
+    /* Gradients */
+    --gradient-brand: linear-gradient(135deg, hsl(220 90% 56%) 0%, hsl(250 85% 60%) 100%);
+    --gradient-subtle: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(220 90% 56% / 0.12), transparent);
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+}
+
+@layer components {
+  /* Glass card effect */
+  .glass {
+    background: hsl(var(--card) / 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.8);
+  }
+
+  /* Animated gradient border */
+  .gradient-border {
+    position: relative;
+    background: hsl(var(--card));
+    border-radius: var(--radius);
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: calc(var(--radius) + 1px);
+    background: var(--gradient-brand);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .gradient-border:hover::before {
+    opacity: 1;
+  }
+
+  /* Status indicator dot */
+  .status-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+
+  /* Live pulse */
+  .pulse-live {
+    animation: pulse-live 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-live {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  /* Slide in animation */
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out forwards;
+  }
+
+  /* Confirmation card fill animation */
+  @keyframes fill-in {
+    from { width: 0%; }
+    to { width: var(--fill-pct); }
+  }
+
+  .fill-bar {
+    animation: fill-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+/* Nav active indicator */
+.nav-item-active {
+  background: hsl(var(--sidebar-primary) / 0.15);
+  color: hsl(var(--sidebar-primary));
+  font-weight: 600;
+}

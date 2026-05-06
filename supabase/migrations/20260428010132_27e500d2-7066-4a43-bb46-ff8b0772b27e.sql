@@ -1,0 +1,1 @@
+ALTER TABLE public.ministries DROP CONSTRAINT IF EXISTS ministries_leader_id_fkey;
